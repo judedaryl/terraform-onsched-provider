@@ -4,24 +4,14 @@ import (
 	"context"
 	"flag"
 	"log"
-	"os"
 	"terraform-provider-onsched/internal/provider"
-	"terraform-provider-onsched/onsched"
 
 	"github.com/hashicorp/terraform-plugin-framework/providerserver"
 )
 
-func mainS() {
-	client_id := os.Getenv("ONSCHED_CLIENT_ID")
-	client_secret := os.Getenv("ONSCHED_CLIENT_SECRET")
-	c := onsched.NewClient(onsched.Sandbox, client_id, client_secret)
-	comp, _ := c.GetCompany()
-	comp.City = "Tagbilaran"
-	comp, _ = c.UpdateCompany(comp)
-	log.Println(comp)
-
-}
-
+// Generate the Terraform provider documentation using `tfplugindocs`:
+//
+//go:generate go run github.com/hashicorp/terraform-plugin-docs/cmd/tfplugindocs
 func main() {
 	var debug bool
 
@@ -29,7 +19,7 @@ func main() {
 	flag.Parse()
 
 	opts := providerserver.ServeOpts{
-		Address: "level2.com/level2/onsched",
+		Address: "registry.terraform.io/judedaryl/onsched",
 		Debug:   debug,
 	}
 

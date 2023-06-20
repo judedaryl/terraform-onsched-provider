@@ -18,19 +18,19 @@ import (
 
 // Ensure the implementation satisfies the expected interfaces.
 var (
-	_ provider.Provider = &onschedProvider{}
+	_ provider.Provider = &OnSchedProvider{}
 )
 
 // New is a helper function to simplify provider server and testing implementation.
 func New(version string) func() provider.Provider {
 	return func() provider.Provider {
-		return &onschedProvider{
+		return &OnSchedProvider{
 			version: version,
 		}
 	}
 }
 
-type onschedProvider struct {
+type OnSchedProvider struct {
 	// version is set to the provider version on release, "dev" when the
 	// provider is built and ran locally, and "test" when running acceptance
 	// testing.
@@ -49,13 +49,13 @@ type onschedProviderModel struct {
 }
 
 // Metadata returns the provider type name.
-func (p *onschedProvider) Metadata(_ context.Context, _ provider.MetadataRequest, resp *provider.MetadataResponse) {
+func (p *OnSchedProvider) Metadata(_ context.Context, _ provider.MetadataRequest, resp *provider.MetadataResponse) {
 	resp.TypeName = "onsched"
 	resp.Version = p.version
 }
 
 // Schema defines the provider-level schema for configuration data.
-func (p *onschedProvider) Schema(_ context.Context, _ provider.SchemaRequest, resp *provider.SchemaResponse) {
+func (p *OnSchedProvider) Schema(_ context.Context, _ provider.SchemaRequest, resp *provider.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		Attributes: map[string]schema.Attribute{
 			"env": schema.StringAttribute{
@@ -69,7 +69,7 @@ func (p *onschedProvider) Schema(_ context.Context, _ provider.SchemaRequest, re
 }
 
 // Configure prepares a HashiCups API client for data sources and resources.
-func (p *onschedProvider) Configure(ctx context.Context, req provider.ConfigureRequest, resp *provider.ConfigureResponse) {
+func (p *OnSchedProvider) Configure(ctx context.Context, req provider.ConfigureRequest, resp *provider.ConfigureResponse) {
 	var config onschedProviderModel
 	diags := req.Config.Get(ctx, &config)
 	resp.Diagnostics.Append(diags...)
@@ -115,12 +115,12 @@ func (p *onschedProvider) Configure(ctx context.Context, req provider.ConfigureR
 }
 
 // DataSources defines the data sources implemented in the provider.
-func (p *onschedProvider) DataSources(_ context.Context) []func() datasource.DataSource {
+func (p *OnSchedProvider) DataSources(_ context.Context) []func() datasource.DataSource {
 	return nil
 }
 
 // Resources defines the resources implemented in the provider.
-func (p *onschedProvider) Resources(_ context.Context) []func() resource.Resource {
+func (p *OnSchedProvider) Resources(_ context.Context) []func() resource.Resource {
 	return []func() resource.Resource{
 		NewWebhookResource,
 	}

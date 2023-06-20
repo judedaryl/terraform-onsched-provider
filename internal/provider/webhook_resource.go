@@ -57,7 +57,7 @@ func (r *webhookResource) Metadata(_ context.Context, req resource.MetadataReque
 func (r *webhookResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: "Example resource",
+		MarkdownDescription: "Webhooks for OnSched",
 
 		Attributes: map[string]schema.Attribute{
 			"booking_webhook_url": schema.StringAttribute{
